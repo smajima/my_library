@@ -1,0 +1,47 @@
+<% require 'my_lib_constants' %>
+<%= render 'top_menu' %>
+<%  s_cd_ganre = session[:cd_ganre]
+    title = session[:title]
+    capital = session[:capital]
+    artist = session[:artist]
+    place = session[:place]
+    year = session[:year]
+%>
+<h1>Search CD</h1>
+<%= form_tag search_cds_path, method: 'get' %>
+<%= cd_ganre s_cd_ganre %><br/>
+Title:<%= text_field_tag :title, title, size: 64  %><br/>
+Artist Capital:<%= select_tag :capital, capital_option(capital), include_blank: true  %><br/>
+Artist:<%= text_field_tag :artist, artist, size: 64  %><br/>
+Place:<%= select_tag :place, place_option(place), include_blank: true %><br/>
+Year:<%= select_tag :year, year_option(year), include_blank: true %><br/>
+<%= hidden_field_tag :from_keyboard, '1' %>
+<%= submit_tag 'Search'%>&nbsp;&nbsp;<%= link_to 'clear condition', cds_path %>
+<%  unless @cds.blank? %>
+  <%= will_paginate @cds %>
+<% end %>
+<table>
+  <tr class="header">
+    <th id="ganre">Ganre</th><th id="artist">Artist</th>
+    <th id="title">Title</th><th id="year">Year</th><th id ="place">Place</th>
+  </tr>
+  <% unless @cds.blank? %>
+  <% @cds.each do |cd| %>
+  <% line = cycle("odd", "even") %>
+  <tr class="data">
+  <td id="<%= line %>"><%= conv_ganre(cd.ganre) %></td>
+  <td id="<%= line %>"><%= cd.artist %></td>
+  <td id="<%= line %>"><%= cd.title %></td>
+  <td id="<%= line %>"><%= cd.issued_year %></td>
+  <td id="<%= line %>"><%= cd.place %></td>
+  <td><%= link_to 'Edit', edit_cd_path(cd) %></td>
+  <td>
+    <% if check_admin? %>
+    <%= link_to 'Delete', cd_path(cd), confirm: 'Are you sure?', method: 'delete' %>
+    <% end %>
+  </td>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
+  

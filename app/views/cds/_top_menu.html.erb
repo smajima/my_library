@@ -1,0 +1,5 @@
+<%= link_to 'Search', search_cds_path %>
+<% if check_admin? %>
+|<%= link_to 'Register', new_cd_path %>
+<% end %>
+|<%= link_to 'Welcome page',  controller: 'welcome', action: 'index' %>

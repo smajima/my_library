@@ -1,0 +1,35 @@
+<% require 'my_lib_constants' %>
+
+  <% if @cd.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@cd.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @cd.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<p>
+  <%= f.label :ganre %>
+  <%= f.select :ganre, ganre_hash %>
+</p>
+<p>
+  <%= f.label :artist %>
+  <%= f.text_field :artist, size: 64 %>  
+</p>
+<p>
+  <%= f.label :title %>
+  <%= f.text_field :title, size: 64 %>
+</p>
+<p>
+  <%= f.label :issued_year %>
+  <%= f.select :issued_year, YEARS, include_blank: true %>
+</p>
+<p>
+  <%= f.label :place %>
+  <%= f.select :place, PLACES, include_blank: true%>
+</p>
+<%= f.submit %>
+
