@@ -29,7 +29,7 @@ Year:<%= select_tag :year, year_option(year), include_blank: true %><br/>
   <% @cds.each do |cd| %>
   <% line = cycle("odd", "even") %>
   <tr class="data">
-  <td id="<%= line %>"><%= conv_ganre(cd.ganre) %></td>
+  <td id="<%= line %>"><%= CD_GANRE_INVERT[cd.ganre] %></td>
   <td id="<%= line %>"><%= cd.artist %></td>
   <td id="<%= line %>"><%= cd.title %></td>
   <td id="<%= line %>"><%= cd.issued_year %></td>

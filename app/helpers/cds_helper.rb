@@ -5,27 +5,13 @@ module CdsHelper
     html = ''
     selected_id = []
     selected_id = sel_ganre.values unless sel_ganre.blank?
-    p selected_id.inspect
-    CD_GANRE_TABLE.each do |ganre|
-    html += ganre[:name] + check_box_tag("cd_ganre[#{ganre[:name]}]", ganre[:code], 
-      selected_id.include?(ganre[:code].to_s) ? true : false)
+    CD_GANRE_HASH.each do |k, v|
+    html += k + check_box_tag("cd_ganre[#{k}]", v, 
+      selected_id.include?(v.to_s) ? true : false)
     end
     html.html_safe
   end
   
-  def ganre_hash
-    ganre_hash = {}
-    CD_GANRE_TABLE.each do |ganre|
-      ganre_hash.merge! ganre[:name] => ganre[:code]
-    end
-    ganre_hash
-  end
-  
-  def conv_ganre(ganre_code)
-    CD_GANRE_TABLE.each do |ganre|
-      return ganre[:name] if ganre[:code] == ganre_code
-    end
-  end
   
   def capital_option(c)
     html = ''
